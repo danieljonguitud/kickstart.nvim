@@ -278,6 +278,11 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- Set nvim theme based on OS theme
+if os.getenv('theme') == 'light' then
+  vim.o.background = 'light'
+end
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
