@@ -562,6 +562,18 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+
+  ["eslint"] = function()
+    local lspconfig = require("lspconfig")
+    lspconfig.eslint.setup {
+      on_attach = function(_, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          command = "EslintFixAll"
+        })
+      end,
+    }
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]
