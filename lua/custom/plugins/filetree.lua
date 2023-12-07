@@ -9,6 +9,21 @@ return {
     "MunifTanjim/nui.nvim",
   },
   config = function ()
-    require('neo-tree').setup {}
+    require('neo-tree').setup({
+      window = {
+        position = "current"
+      },
+      close_if_last_window = true,
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+        follow_current_file = {
+          enabled = true,
+        },
+        hijak_netrw_behaviour = "open_current",
+      }
+    })
   end,
 }
