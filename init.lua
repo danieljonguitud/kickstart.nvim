@@ -67,7 +67,6 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 
-require('dj.remap')
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
@@ -284,6 +283,9 @@ if os.getenv('theme') == 'light' then
 end
 
 -- [[ Basic Keymaps ]]
+
+-- dj very own keymaps
+require('dj.remap')
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
