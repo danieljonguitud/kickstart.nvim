@@ -171,10 +171,20 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+      },
+      sections = {
+        lualine_c = {
+          {
+            'filename',
+            symbols = {
+              modified = '●',      -- Text to show when the file is modified.
+            },
+          }
+        },
       },
     },
   },
