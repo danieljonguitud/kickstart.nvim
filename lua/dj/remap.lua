@@ -1,4 +1,5 @@
 vim.keymap.set('n', '<leader>pl', ':Neotree reveal toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set("i", "<A-BS>", "<C-w>")
 
 local harpoon = require("harpoon")
 
@@ -12,3 +13,5 @@ vim.keymap.set("n", "<C-n>", function() harpoon:list():select(1) end)
 vim.keymap.set("n", "<C-e>", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<C-i>", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<C-o>", function() harpoon:list():select(4) end)
+
+
