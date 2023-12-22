@@ -109,7 +109,7 @@ require('lazy').setup({
 
       -- Signature helps, i.e. floating window during function arguments
       'hrsh7th/cmp-nvim-lsp-signature-help',
-      
+
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
@@ -535,11 +535,11 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
   eslint = {},
   pyright = {},
+  autotools_ls = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
