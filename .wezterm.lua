@@ -111,24 +111,34 @@ config.keys = {
     action = act.ActivatePaneDirection 'Down'
   },
   {
-    key = 'E',
+    key = 'r',
     mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Down', 5 }
+    action = act.ActivateKeyTable {
+      name = 'resize_pane',
+      one_shot = false,
+    },
   },
-  {
-    key = 'I',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Up', 5 }
-  },
-  {
-    key = 'N',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Left', 5 }
-  },
-  {
-    key = 'O',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Right', 5 }
+}
+
+config.key_tables = {
+  resize_pane = {
+    {
+      key = 'DownArrow',
+      action = act.AdjustPaneSize { 'Down', 5 }
+    },
+    {
+      key = 'UpArrow',
+      action = act.AdjustPaneSize { 'Up', 5 }
+    },
+    {
+      key = 'LeftArrow',
+      action = act.AdjustPaneSize { 'Left', 5 }
+    },
+    {
+      key = 'RightArrow',
+      action = act.AdjustPaneSize { 'Right', 5 }
+    },
+    { key = 'Escape', action = 'PopKeyTable' },
   },
 }
 
