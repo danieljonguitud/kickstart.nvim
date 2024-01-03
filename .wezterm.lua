@@ -1,5 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
+local act = wezterm.action
 
 -- This table will hold the configuration.
 local config = {}
@@ -65,6 +66,72 @@ config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.show_new_tab_button_in_tab_bar = false
 config.tab_bar_at_bottom = true
+
+-- Hotkeys config
+config.leader = { key = 'a', mods = 'CTRL' }
+config.keys = {
+  {
+    key = 'm',
+    mods = 'LEADER',
+    action = act.TogglePaneZoomState,
+  },
+  {
+    key = '|',
+    mods = 'LEADER',
+    action = act.SplitHorizontal { domain = 'CurrentPaneDomain'},
+  },
+  {
+    key = '-',
+    mods = 'LEADER',
+    action = act.SplitVertical { domain = 'CurrentPaneDomain'},
+  },
+  {
+    key = '-',
+    mods = 'LEADER',
+    action = act.SplitVertical { domain = 'CurrentPaneDomain'},
+  },
+  {
+    key = 'LeftArrow',
+    mods = 'LEADER',
+    action = act.ActivatePaneDirection 'Left'
+  },
+  {
+    key = 'RightArrow',
+    mods = 'LEADER',
+    action = act.ActivatePaneDirection 'Right'
+  },
+  {
+    key = 'UpArrow',
+    mods = 'LEADER',
+    action = act.ActivatePaneDirection 'Up'
+  },
+  {
+    key = 'DownArrow',
+    mods = 'LEADER',
+    action = act.ActivatePaneDirection 'Down'
+  },
+  {
+    key = 'E',
+    mods = 'LEADER',
+    action = act.AdjustPaneSize { 'Down', 5 }
+  },
+  {
+    key = 'I',
+    mods = 'LEADER',
+    action = act.AdjustPaneSize { 'Up', 5 }
+  },
+  {
+    key = 'N',
+    mods = 'LEADER',
+    action = act.AdjustPaneSize { 'Left', 5 }
+  },
+  {
+    key = 'O',
+    mods = 'LEADER',
+    action = act.AdjustPaneSize { 'Right', 5 }
+  },
+}
+
 
 -- and finally, return the configuration to wezterm
 return config
