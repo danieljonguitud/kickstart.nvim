@@ -142,6 +142,8 @@ config.key_tables = {
   },
 }
 
+config.window_decorations = "RESIZE"
+
 
 -- and finally, return the configuration to wezterm
 return config
