@@ -591,14 +591,11 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "go",
-  callback = function()
-    vim.opt_local.tabstop = 4
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.expandtab = true
-  end,
-})
+-- This should be temporary
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
