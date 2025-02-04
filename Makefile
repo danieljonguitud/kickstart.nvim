@@ -3,10 +3,10 @@ SOURCE_DIR := $(HOME)/nvim/.config
 TARGET_DIR := $(HOME)/.config
 
 # Define the list of files to symlink and their respective source locations
-AEROSPACE_SOURCE := $(SOURCE_DIR)/nvim/aerospace
-SKETCHYBAR_SOURCE := $(SOURCE_DIR)/nvim/sketchybar
-WEZTERM_SOURCE := $(SOURCE_DIR)/nvim/.wezterm.lua
-ZSH_SOURCE := $(SOURCE_DIR)/nvim/.zshrc
+AEROSPACE_SOURCE := $(SOURCE_DIR)/aerospace
+SKETCHYBAR_SOURCE := $(SOURCE_DIR)/sketchybar
+WEZTERM_SOURCE := $(SOURCE_DIR)/.wezterm.lua
+ZSH_SOURCE := $(SOURCE_DIR)/.zshrc
 
 # Define the target locations for each config file
 AEROSPACE_TARGET := $(TARGET_DIR)/aerospace
@@ -27,7 +27,7 @@ symlinks: install-oh-my-zsh install-brew install-neovim install-wezterm install-
 install-oh-my-zsh:
 	@echo "Checking for oh my zsh..."
 	@if ! command -v brew >/dev/null; then \
-		echo "Installing Homebrew..."; \
+		echo "Installing ZSH..."; \
 		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
 	else \
 		echo "Oh my zsh is already installed."; \
@@ -104,6 +104,12 @@ install-theme:
 	else \
 		echo "powerlevel10k is already installed."; \
 	fi
+
+.PHONY: install-fonts
+install-theme:
+	@echo "Installing fonts..."
+	@brew install --cask font-jetbrainsmono-nerd-font
+	@brew install --cask font-hack-nerd-font
 
 # Specific rules to create symlink for each file
 .PHONY: symlink-aerospace
