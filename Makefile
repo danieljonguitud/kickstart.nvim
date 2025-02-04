@@ -1,16 +1,18 @@
 # Define the source and target directories
-CONFIG_DIR := $(HOME)/.config
-TARGET_DIR := $(HOME)
+SOURCE_DIR := $(HOME)/nvim/.config
+TARGET_DIR := $(HOME)/.config
 
 # Define the list of files to symlink and their respective source locations
-YABAI_SOURCE := $(CONFIG_DIR)/nvim/yabairc
-SKHD_SOURCE := $(CONFIG_DIR)/nvim/skhdrc
-WEZTERM_SOURCE := $(CONFIG_DIR)/.wezterm.lua
+AEROSPACE_SOURCE := $(SOURCE_DIR)/nvim/aerospace
+SKETCHYBAR_SOURCE := $(SOURCE_DIR)/nvim/sketchybar
+WEZTERM_SOURCE := $(SOURCE_DIR)/nvim/.wezterm.lua
+ZSH_SOURCE := $(SOURCE_DIR)/nvim/.zshrc
 
 # Define the target locations for each config file
-YABAI_TARGET := $(CONFIG_DIR)/yabai/yabairc
-SKHD_TARGET := $(CONFIG_DIR)/skhd/skhdrc
-WEZTERM_TARGET := $(TARGET_DIR)/.wezterm.lua
+AEROSPACE_TARGET := $(TARGET_DIR)/aerospace
+SKETCHYBAR_SOURCE := $(TARGET_DIR)/sketchybar
+WEZTERM_TARGET := $(HOME)/.wezterm.lua
+ZSH_TARGET := $(HOME)/.zshrc
 
 # Default target
 .PHONY: all
@@ -18,36 +20,108 @@ all: symlinks
 
 # Create symlinks for each config file
 .PHONY: symlinks
-symlinks: symlink-yabairc symlink-skhdrc symlink-wezterm
+symlinks: install-oh-my-zsh install-brew install-neovim install-wezterm install-aerospace install-janky-borders install-sketchybar symlink-aerospace symlink-sketchybar symlink-wezterm symlink-zsh
+	@echo "Setup complete!"
+
+.PHONY: install-oh-my-zsh
+install-oh-my-zsh:
+	@echo "Checking for oh my zsh..."
+	@if ! command -v brew >/dev/null; then \
+		echo "Installing Homebrew..."; \
+		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+	else \
+		echo "Oh my zsh is already installed."; \
+	fi
+
+.PHONY: install-brew
+install-brew:
+	@echo "Checking for Homebrew..."
+	@if ! command -v brew >/dev/null; then \
+		echo "Installing Homebrew..."; \
+		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	else \
+		echo "Homebrew is already installed."; \
+	fi
+
+.PHONY: install-neovim
+install-neovim:
+	@echo "Checking for Neovim..."
+	@if ! command -v nvim >/dev/null; then \
+		echo "Installing Neovim..."; \
+		brew install neovim; \
+	else \
+		echo "Neovim is already installed."; \
+	fi
+
+.PHONY: install-wezterm
+install-wezterm:
+	@echo "Checking for Wezterm..."
+	@if ! command -v wezterm >/dev/null; then \
+		echo "Installing Wezterm..."; \
+		brew install --cask wezterm; \
+	else \
+		echo "Wezterm is already installed."; \
+	fi
+
+.PHONY: install-aerospace
+install-aerospace:
+	@echo "Checking for Aerospace..."
+	@if ! command -v aerospace >/dev/null; then \
+		echo "Installing Aerospace..."; \
+		brew install --cask nikitabobko/tap/aerospace; \
+	else \
+		echo "Wezterm is already installed."; \
+	fi
+
+.PHONY: install-janky-borders
+install-janky-borders:
+	@echo "Checking for Janky Borders..."
+	@if ! command -v borders >/dev/null; then \
+		echo "Installing AJanky Borders..."; \
+		brew tap FelixKratz/formulae; \
+		brew install borders; \
+	else \
+		echo "Janky Borders is already installed."; \
+	fi
+
+.PHONY: install-sketchybar
+install-sketchybar:
+	@echo "Checking for Sketchybar..."
+	@if ! command -v borders >/dev/null; then \
+		echo "Installing Sketchybar..."; \
+		brew tap FelixKratz/formulae; \
+		brew install sketchybar; \
+	else \
+		echo "Sketchybar is already installed."; \
+	fi
+
 
 # Specific rules to create symlink for each file
-.PHONY: symlink-yabairc
-symlink-yabairc: $(CONFIG_DIR)/yabai
-	@echo "Creating symlink for yabairc"
-	@ln -sf $(YABAI_SOURCE) $(YABAI_TARGET)
+.PHONY: symlink-aerospace
+symlink-aerospace: 
+	@echo "Creating symlink for aerospace"
+	@ln -sfn $(AEROSPACE_SOURCE) $(AEROSPACE_TARGET)
 
-.PHONY: symlink-skhdrc
-symlink-skhdrc: $(CONFIG_DIR)/skhd
-	@echo "Creating symlink for skhdrc"
-	@ln -sf $(SKHD_SOURCE) $(SKHD_TARGET)
+.PHONY: symlink-sketchybar
+symlink-sketchybar: 
+	@echo "Creating symlink for sketchybar"
+	@ln -sfn $(SKETCHYBAR_SOURCE) $(SKETCHYBAR_TARGET)
 
 .PHONY: symlink-wezterm
 symlink-wezterm:
-	@echo "Creating symlink for .wezterm.lua"
+	@echo "Creating symlink for wezterm"
 	@ln -sf $(WEZTERM_SOURCE) $(WEZTERM_TARGET)
 
-# Ensure target directories exist
-$(CONFIG_DIR)/yabai:
-	@mkdir -p $(CONFIG_DIR)/yabai
-
-$(CONFIG_DIR)/skhd:
-	@mkdir -p $(CONFIG_DIR)/skhd
+.PHONY: symlink-zsh
+symlink-zsh:
+	@echo "Creating symlink for zsh"
+	@ln -sf $(ZSH_SOURCE) $(ZSH_TARGET)
 
 # Clean symlinks (does not remove the original config files)
 .PHONY: clean
 clean:
 	@echo "Removing symlinks..."
-	@rm -f $(YABAI_TARGET) $(SKHD_TARGET) $(WEZTERM_TARGET)
+	@rm -rf $(YABAI_TARGET) $(AEROSPACE_TARGET) $(WEZTERM_TARGET)
 
 # Install configuration (create symlinks)
 .PHONY: install
