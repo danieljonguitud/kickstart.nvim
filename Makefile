@@ -20,7 +20,7 @@ all: symlinks
 
 # Create symlinks for each config file
 .PHONY: symlinks
-symlinks: install-oh-my-zsh install-brew install-neovim install-wezterm install-aerospace install-janky-borders install-sketchybar symlink-aerospace symlink-sketchybar symlink-wezterm symlink-zsh
+symlinks: install-oh-my-zsh install-brew install-neovim install-wezterm install-aerospace install-janky-borders install-sketchybar symlink-aerospace symlink-sketchybar symlink-wezterm symlink-zsh install-theme
 	@echo "Setup complete!"
 
 .PHONY: install-oh-my-zsh
@@ -95,6 +95,15 @@ install-sketchybar:
 		echo "Sketchybar is already installed."; \
 	fi
 
+.PHONY: install-theme
+install-theme:
+	@echo "Checking for powerlevel10k..."
+	@if ! command -v borders >/dev/null; then \
+		echo "Installing powerlevel10k..."; \
+		brew install powerlevel10k; \
+	else \
+		echo "powerlevel10k is already installed."; \
+	fi
 
 # Specific rules to create symlink for each file
 .PHONY: symlink-aerospace
