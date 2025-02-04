@@ -30,3 +30,5 @@ vim.keymap.set("n", "<S-Down>", "<C-d>zz")
 vim.keymap.set("n", "n", "nzzzv") -- This and the next, when searching the word will be always in the middle
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- Search and replace the word on the cursor
+vim.keymap.set("n", "<A-Left>", "B")
+vim.keymap.set("n", "<A-Right>", "W")
